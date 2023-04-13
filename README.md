@@ -39,9 +39,9 @@ Rename VPC in emulator
 ```ip 192.168.4.3 255.255.255.0 192.168.4.1```
 
 
-#### 1. Configuring switch 1
+#### 1. Configuring switch 1 and 2
 
-##### Change name to S1
+##### Change name to S1(2 for switch2)
 
 Rename switch in emulator
 
@@ -49,13 +49,70 @@ Rename switch in emulator
 ##### Change basic settings: 
 
 
-```enable```
+```enable```  Enter in priveleged mode
 
-```configure terminal```
+```configure terminal```  Enter in config mode
 
-```hostname S1```
+```hostname S1``` Change name (S2 for switch2)
 
-```no ip domain-lookup```
+```no ip domain-lookup``` Disable resolving err inputs
 
-```enable secret class```
+```enable secret cisco```  set password to 'enable'
+
+```line console 0``` ```password cisco``` set password to 'console'
+
+```line vty 0 4``` ```password cisco``` set password to 'vty'
+
+```enable password encryption``` password encrypt
+
+```banner motd "Authorized access only!!!"``` Create login banner
+
+```ntp server 95.174.96.44``` set ntp server
+
+```exit``` ```exit``` ```copy running-config startup-config``` Save settings
+
+##### Creating vlan's
+
+```enable```  Enter in priveleged mode
+
+```configure terminal```  Enter in config mode
+
+```vlan 3``` ```name Management``` Create vlan id 3 with name 'Management'
+
+```vlan 4``` ```name Operations``` Create vlan id 4 with name 'Operations'
+
+```vlan 7``` ```name ParkingLot``` Create vlan id 7 with name 'ParkingLot'
+
+```vlan 8``` ```name Native``` Create vlan id 8 with name 'Native'
+
+##### Creating interface vlan for s1
+
+```interface vlan 3``` ```ip address 192.168.3.11 255.255.255.0``` assign ip address on interface vlan 3
+```no shutdown``` enable interface
+
+##### Creating interface vlan for s2
+
+```interface vlan 3``` ```ip address 192.168.3.12 255.255.255.0``` assign ip address on interface vlan 3
+```no shutdown``` enable interface
+
+##### Creating default gateway for s1 and s2
+
+```ip route 0.0.0.0 0.0.0.0 192.168.3.1``` Create default route  
+
+
+##### Assigning access vlan's on ports Switch S1
+
+```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 3 ``` 'ethernet 0/1 acces mode vlan 3'
+
+##### Assigning access vlan's on ports Switch S2
+
+```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 4 ``` 'ethernet 0/1 acces mode vlan 4'
+
+##### Assigning trunk vlan's on ports Switch S1
+
+```interface range ethernet 0/0 , ethernet 0/2``` ```switchport trunk encapsulation dot1q``` ```switchport mode trunk ``` ```switchport trunk allowed vlan 3,4 ``` 'ethernet 0/0,2 trunk mode vlan 3 and 4'
+
+##### Assigning trunk vlan's on ports Switch S2
+
+```interface ethernet 0/0 ``` ```switchport trunk encapsulation dot1q``` ```switchport mode trunk ``` ```switchport trunk allowed vlan 3,4 ``` 'ethernet 0/0 trunk mode vlan 3 and 4'
 
