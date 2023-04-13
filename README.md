@@ -9,3 +9,14 @@
  schema
 
 ### Addresing table
+
+ ip's
+
+### VLAN table
+ 
+vlan's
+
+#### 1. Configuring router R1
+
+
+
