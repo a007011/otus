@@ -25,7 +25,7 @@ Rename VPC in emulator
 ##### Aiign ip address on interface eth0
 
 
-'''ip 192.168.3.3 255.255.255.0 192.168.3.1'''
+```ip 192.168.3.3 255.255.255.0 192.168.3.1```
 
 
 
