@@ -50,8 +50,12 @@ Rename switch in emulator
 
 
 ```enable```
+
 ```configure terminal```
+
 ```hostname S1```
+
 ```no ip domain-lookup```
+
 ```enable secret class```
 
