@@ -6,7 +6,7 @@
 
 ### Creating network topology in emulator
 
- schema
+ (topology.png)
 
 ### Use addresing table
 
