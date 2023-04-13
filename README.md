@@ -102,11 +102,11 @@ Rename switch in emulator
 
 ##### Assigning access vlan's on ports Switch S1
 
-```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 3 ``` 'ethernet 0/1 acces mode vlan 3'
+```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 3 ``` 'ethernet 0/1 acces mode vlan id 3'
 
 ##### Assigning access vlan's on ports Switch S2
 
-```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 4 ``` 'ethernet 0/1 acces mode vlan 4'
+```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 4 ``` 'ethernet 0/1 acces mode vlan id 4'
 
 ##### Assigning trunk vlan's on ports Switch S1
 
@@ -116,3 +116,39 @@ Rename switch in emulator
 
 ```interface ethernet 0/0 ``` ```switchport trunk encapsulation dot1q``` ```switchport mode trunk ``` ```switchport trunk allowed vlan 3,4 ``` 'ethernet 0/0 trunk mode vlan 3 and 4'
 
+##### Assigning not used ports to ParkingLot on s1 
+
+```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 7 ``` 'ethernet 0/1 acces mode vlan id 7'
+```shutdown``` disable interface
+
+##### Assigning not used ports to ParkingLot on s2 
+
+```interface range ethernet 0/2 , ethernet 0/3``` ```switchport mode access``` ```switchport  access vlan 7 ``` 'ethernet 0/1 acces mode vlan id 7'
+```shutdown``` disable interface
+
+#### Configuring router r1
+
+```enable```  Enter in priveleged mode
+
+```configure terminal```  Enter in config mode
+
+```hostname R1``` Change name 
+
+```no ip domain-lookup``` Disable resolving err inputs
+
+```banner motd "Authorized access only!!!"``` Create login banner
+
+```ntp server 95.174.96.44``` set ntp server
+
+```enable secret cisco```  set password to 'enable'
+
+```line console 0``` ```password cisco``` set password to 'console'
+
+```line vty 0 4``` ```password cisco``` set password to 'vty'
+
+##### Create subinterfaces and assign ip addresses 
+```interface ethernet 0/0.1 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.3.1 255.255.255.0 ``` ip address on subinterface 0/0.1
+ ```interface ethernet 0/0.2 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.4.1 255.255.255.0 ``` ip address on subinterface 0/0.2
+
+
+ Now pc's can ping each other icluding router r1
