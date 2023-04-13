@@ -16,7 +16,16 @@
  
 vlan's
 
-#### 1. Configuring router R1
+#### 1. Configuring Virtual PC 
+
+##### Change name to PC-A 
+
+Rename VPC in emulator
+
+##### Aiign ip address on interface eth0
+
+
+'''ip 192.168.3.3 255.255.255.0 192.168.3.1'''
 
 
 
