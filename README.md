@@ -6,7 +6,7 @@
 
 ### Creating network topology in emulator
 
- !(Topology.png)
+(Topology.png)
 
 ### Use addresing table
 
