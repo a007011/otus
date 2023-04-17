@@ -149,6 +149,7 @@ Rename switch in emulator
 ##### Create subinterfaces and assign ip addresses 
 ```interface ethernet 0/0.1 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.3.1 255.255.255.0 ``` ip address on subinterface 0/0.1
  ```interface ethernet 0/0.2 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.4.1 255.255.255.0 ``` ip address on subinterface 0/0.2
+ ```interface ethernet 0/0.3 ``` ```encapsulation dot1Q 8 ``` ip address on subinterface 0/0.3
 
 
  Now pc's can ping each other icluding router r1
