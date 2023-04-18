@@ -12,14 +12,14 @@
  ip's
 
  |  Device  |  Interface  |  IP Address  |  Subnet Mask  |  Default Geatway  |
-|----------|-------------|--------------|---------------|-------------------|
-|R1        |G0/0/1.3     |192.168.3.1   |255.255.255.0  |N/A                |
-|          |G0/0/1.4     |192.168.4.1   |255.255.255.0  |N/A                |
-|          |G0/0/1.8     |N/A           |N/A            |N/A                |
-|S1        |VLAN3        |192.168.3.11  |255.255.255.0  |192.168.3.1        |
-|S2        |VLAN3        |192.168.3.12  |255.255.255.0  |192.168.3.1        |
-|PC-A      |NIC          |192.168.3.3   |255.255.255.0  |192.168.3.1        |
-|PC-B      |NIC          |192.168.4.3   |255.255.255.0  |192.168.4.1        |
+|----------|------------------|--------------|---------------|-------------------|
+|R1        |Ethernet0/0.1     |192.168.3.1   |255.255.255.0  |N/A                |
+|          |Ethernet0/0.2     |192.168.4.1   |255.255.255.0  |N/A                |
+|          |Ethernet0/0.3     |N/A           |N/A            |N/A                |
+|S1        |VLAN3             |192.168.3.11  |255.255.255.0  |192.168.3.1        |
+|S2        |VLAN3             |192.168.3.12  |255.255.255.0  |192.168.3.1        |
+|PC-A      |ETH0              |192.168.3.3   |255.255.255.0  |192.168.3.1        |
+|PC-B      |ETH0              |192.168.4.3   |255.255.255.0  |192.168.4.1        |
 
 
 ### Use VLAN table
@@ -28,8 +28,8 @@
 |--------|------------|------------------------------|
 |3       |Management  |S1,S2: VLAN3; S1: F/06        |
 |4       |Operations  |S2: F0/18                     |
-|7       |ParkingLot  |S1: F0/2-4,F0/7-24,G0/1-2     |
-|        |            |S2: F0/2-17, F0/19-24, G0/1-2 |
+|7       |ParkingLot  |S1: ethernet 0/1              |
+|        |            |S2: ethernet 0/2 0/3          |
 |8       |Native      |N/A                           |
 
 
@@ -143,6 +143,15 @@ Rename switch in emulator
 ```interface range ethernet 0/2 , ethernet 0/3``` ```switchport mode access``` ```switchport  access vlan 7 ``` 'ethernet 0/1 acces mode vlan id 7'
 ```shutdown``` disable interface
 
+
+##### Assigning native vlan's on ports Switch S1
+
+```interface range ethernet 0/2 , ethernet 0/0``` ```switchport  access vlan 8 ``` 'trunk ports ethernet 0/1 and 0/3 for untagged vlan 8'
+
+##### Assigning native vlan's on ports Switch S1
+
+```interface range ethernet 0/0 , ethernet 0/1``` ```switchport  access vlan 8 ``` 'trunk ports ethernet 0/0 and 0/1 for untagged vlan 8'
+
 #### Configuring router r1
 
 ```enable```  Enter in priveleged mode
@@ -166,7 +175,7 @@ Rename switch in emulator
 ##### Create subinterfaces and assign ip addresses 
 ```interface ethernet 0/0.1 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.3.1 255.255.255.0 ``` ip address on subinterface 0/0.1
  ```interface ethernet 0/0.2 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.4.1 255.255.255.0 ``` ip address on subinterface 0/0.2
- ```interface ethernet 0/0.3 ``` ```encapsulation dot1Q 8 ``` ip address on subinterface 0/0.3
+ ```interface ethernet 0/0.3 ``` ```encapsulation dot1Q 8 ``` subinterface 0/0.3 Native (untagged vlan)
 
 
  Now pc's can ping each other icluding router r1
