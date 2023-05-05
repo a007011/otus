@@ -1,6 +1,6 @@
- Otus lesson 1 homework 1
+ Otus lesson 2 homework 2
 
-# Vlan routing
+# Spanning tree (STP)
   
 
 ### Creating network topology in emulator
@@ -11,56 +11,18 @@
 
  ip's
 
- |  Device  |  Interface  |  IP Address  |  Subnet Mask  |  Default Geatway  |
-|----------|------------------|--------------|---------------|-------------------|
-|R1        |Ethernet0/0.1     |192.168.3.1   |255.255.255.0  |N/A                |
-|          |Ethernet0/0.2     |192.168.4.1   |255.255.255.0  |N/A                |
-|          |Ethernet0/0.3     |N/A           |N/A            |N/A                |
-|S1        |VLAN3             |192.168.3.11  |255.255.255.0  |192.168.3.1        |
-|S2        |VLAN3             |192.168.3.12  |255.255.255.0  |192.168.3.1        |
-|PC-A      |ETH0              |192.168.3.3   |255.255.255.0  |192.168.3.1        |
-|PC-B      |ETH0              |192.168.4.3   |255.255.255.0  |192.168.4.1        |
+ |  Device  |  Interface  |  IP Address  |  Subnet Mask  
+|----------|------------------|--------------|---------------
+|S1          |VLAN 1     |192.168.1.1   |255.255.255.0  
+|S2          |VLAN 1     |192.168.1.2   |255.255.255.0  
+|S3          |VLAN 1     |192.168.1.3   |255.255.255.0           
 
 
-### Use VLAN table
- 
-|  VLAN  |    Name    |      Interface Assigned      |
-|--------|------------|------------------------------|
-|3       |Management  |S1,S2: VLAN3; S1: F/06        |
-|4       |Operations  |S2: F0/18                     |
-|7       |ParkingLot  |S1: ethernet 0/1              |
-|        |            |S2: ethernet 0/2 0/3          |
-|8       |Native      |N/A                           |
+#### 1. Configuring switches
 
+##### Change name to S1 S2 S3
 
-#### 1. Configuring Virtual PC 1 
-
-##### Change name to PC-A 
-
-Rename VPC in emulator
-
-##### Assgn ip address on interface eth0
-
-
-```ip 192.168.3.3 255.255.255.0 192.168.3.1```
-
-#### 1. Configuring Virtual PC 2
-
-##### Change name to PC-B
-
-Rename VPC in emulator
-
-##### Assgn ip address on interface eth0
-
-
-```ip 192.168.4.3 255.255.255.0 192.168.4.1```
-
-
-#### 1. Configuring switch 1 and 2
-
-##### Change name to S1(2 for switch2)
-
-Rename switch in emulator
+Rename switches in emulator
 
 
 ##### Change basic settings: 
@@ -70,7 +32,7 @@ Rename switch in emulator
 
 ```configure terminal```  Enter in config mode
 
-```hostname S1``` Change name (S2 for switch2)
+```hostname S1``` Change name (S2 for switch2) (S3 for switch3) 
 
 ```no ip domain-lookup``` Disable resolving err inputs
 
@@ -87,95 +49,5 @@ Rename switch in emulator
 ```ntp server 95.174.96.44``` set ntp server
 
 ```exit``` ```exit``` ```copy running-config startup-config``` Save settings
-
-##### Creating vlan's
-
-```enable```  Enter in priveleged mode
-
-```configure terminal```  Enter in config mode
-
-```vlan 3``` ```name Management``` Create vlan id 3 with name 'Management'
-
-```vlan 4``` ```name Operations``` Create vlan id 4 with name 'Operations'
-
-```vlan 7``` ```name ParkingLot``` Create vlan id 7 with name 'ParkingLot'
-
-```vlan 8``` ```name Native``` Create vlan id 8 with name 'Native'
-
-##### Creating interface vlan for s1
-
-```interface vlan 3``` ```ip address 192.168.3.11 255.255.255.0``` assign ip address on interface vlan 3
-```no shutdown``` enable interface
-
-##### Creating interface vlan for s2
-
-```interface vlan 3``` ```ip address 192.168.3.12 255.255.255.0``` assign ip address on interface vlan 3
-```no shutdown``` enable interface
-
-##### Creating default gateway for s1 and s2
-
-```ip route 0.0.0.0 0.0.0.0 192.168.3.1``` Create default route  
-
-
-##### Assigning access vlan's on ports Switch S1
-
-```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 3 ``` 'ethernet 0/1 acces mode vlan id 3'
-
-##### Assigning access vlan's on ports Switch S2
-
-```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 4 ``` 'ethernet 0/1 acces mode vlan id 4'
-
-##### Assigning trunk vlan's on ports Switch S1
-
-```interface range ethernet 0/0 , ethernet 0/2``` ```switchport trunk encapsulation dot1q``` ```switchport mode trunk ``` ```switchport trunk allowed vlan 3,4 ``` 'ethernet 0/0,2 trunk mode vlan 3 and 4'
-
-##### Assigning trunk vlan's on ports Switch S2
-
-```interface ethernet 0/0 ``` ```switchport trunk encapsulation dot1q``` ```switchport mode trunk ``` ```switchport trunk allowed vlan 3,4 ``` 'ethernet 0/0 trunk mode vlan 3 and 4'
-
-##### Assigning not used ports to ParkingLot on s1 
-
-```interface ethernet 0/1``` ```switchport mode access``` ```switchport  access vlan 7 ``` 'ethernet 0/1 acces mode vlan id 7'
-```shutdown``` disable interface
-
-##### Assigning not used ports to ParkingLot on s2 
-
-```interface range ethernet 0/2 , ethernet 0/3``` ```switchport mode access``` ```switchport  access vlan 7 ``` 'ethernet 0/1 acces mode vlan id 7'
-```shutdown``` disable interface
-
-
-##### Assigning native vlan's on ports Switch S1
-
-```interface range ethernet 0/2 , ethernet 0/0``` ```switchport  access vlan 8 ``` 'trunk ports ethernet 0/1 and 0/3 for untagged vlan 8'
-
-##### Assigning native vlan's on ports Switch S1
-
-```interface range ethernet 0/0 , ethernet 0/1``` ```switchport  access vlan 8 ``` 'trunk ports ethernet 0/0 and 0/1 for untagged vlan 8'
-
-#### Configuring router r1
-
-```enable```  Enter in priveleged mode
-
-```configure terminal```  Enter in config mode
-
-```hostname R1``` Change name 
-
-```no ip domain-lookup``` Disable resolving err inputs
-
-```banner motd "Authorized access only!!!"``` Create login banner
-
-```ntp server 95.174.96.44``` set ntp server
-
-```enable secret cisco```  set password to 'enable'
-
-```line console 0``` ```password cisco``` set password to 'console'
-
-```line vty 0 4``` ```password cisco``` set password to 'vty'
-
-##### Create subinterfaces and assign ip addresses 
-```interface ethernet 0/0.1 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.3.1 255.255.255.0 ``` ip address on subinterface 0/0.1
- ```interface ethernet 0/0.2 ``` ```encapsulation dot1Q 3 ``` ```ip address 192.168.4.1 255.255.255.0 ``` ip address on subinterface 0/0.2
- ```interface ethernet 0/0.3 ``` ```encapsulation dot1Q 8 ``` subinterface 0/0.3 Native (untagged vlan)
-
-
- Now pc's can ping each other icluding router r1
+ 
+##### 
