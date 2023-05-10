@@ -50,4 +50,5 @@ Rename switches in emulator
 
 ```exit``` ```exit``` ```copy running-config startup-config``` Save settings
  
-##### 
+#####  Cheking switches accessibility
+
