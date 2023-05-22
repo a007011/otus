@@ -5,7 +5,7 @@
 
 ### Creating network topology in emulator
 
-![Network topology](/homework_VLAN/Topology.png)
+![Network topology](/homework_STP/Topology.png)
 
 ### Use addresing table
 
