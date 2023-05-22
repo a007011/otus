@@ -52,3 +52,8 @@ Rename switches in emulator
  
 #####  Cheking switches accessibility
 
+![ping](/homework_STP/ping from S1.png)
+
+![ping](/homework_STP/ping from S2.png)
+
+![ping](/homework_STP/ping from S3.png)
