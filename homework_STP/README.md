@@ -57,3 +57,4 @@ Rename switches in emulator
 ![ping](/homework_STP/pingfromS2.png)
 
 ![ping](/homework_STP/pingfromS3.png)
+
