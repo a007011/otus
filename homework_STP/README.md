@@ -58,3 +58,71 @@ Rename switches in emulator
 
 ![ping](/homework_STP/pingfromS3.png)
 
+#### Root bridge definition
+
+```interface range ethernet 0/0-3 ``` Select interface range
+
+```shutdown``` shutdown selected ports 
+###### repeat this on all switches
+
+```switchport trunk encapsulation dot1q``` select vlan type
+
+```switchport mode trunk``` set type to trunk mode
+
+```interface ethernet 0/1``` select ports
+
+```no shutdown``` enable ports
+
+```interface ethernet 0/3``` select ports
+
+```no shutdown``` enable ports
+
+```show spanning-tree``` show spanning tree state
+
+![show sp](/homework_STP/spantrees1.png)
+
+
+![show sp](/homework_STP/spantrees2.png)
+
+
+![show sp](/homework_STP/spantrees3.png)
+
+##### answers to questions
+
+|  Device  |  BridgeID                  |  ports       | sts   
+|----------|------------------          |--------------|-------
+|S1        |32768 + 1 + aabb:cc00:0100  |              |  
+|          |                            |e0/0          |fwd
+|          |                            |e0/1          |fwd 
+|          |                            |e0/2          |fwd
+|          |                            |e0/3          |fwd
+|S2        |32768 + 1 + aabb:cc00:0200  |              |  
+|          |                            |e0/0          |fwd
+|          |                            |e0/1          |blk 
+|          |                            |e0/2          |fwd
+|          |                            |e0/3          |fwd
+|S3        |32768 + 1 + aabb:cc00:0200  |              |  
+|          |                            |e0/0          |fwd
+|          |                            |e0/1          |blk 
+|          |                            |e0/2          |fwd
+|          |                            |e0/3          |fwd
+
+
+
+
+
+
+|          |                            |              | 
+|          |                            |              |
+|          |                            |              |
+|          |                            |              |
+|          |                            |              | 
+|          |                            |              |
+|          |                  |              |
+|          |                  |              |
+|          |                  |              | 
+|          |                  |              |
+|          |                  |              |
+
+
+
